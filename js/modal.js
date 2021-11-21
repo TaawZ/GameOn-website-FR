@@ -20,7 +20,9 @@ const formCheck = document.querySelector("#checkbox1");
 const quantity = document.querySelector("#quantity");
 const checkCondition = document.querySelector("#required-check");
 const submitBtn = document.querySelector("#submit-btn")
-const formIsValid = document.querySelector(".valid-form");
+const formIsValid = document.querySelector(".confirm-modal");
+const cross = modalClose[1];
+const closeValid = document.querySelector("#confirm-modal-btn")
 const signUp = document.querySelector("#btn-signup");
 const regexEmail = /.+@.+..+/;
 const regexNames = /[a-zA-Z]{2,}/;
@@ -43,17 +45,20 @@ function closeModal() {
 
 // display confirmation message on submit
 
+closeValid.addEventListener("click", closeValidForm);
+cross.addEventListener("click", closeValidForm);
+
 function validForm() {
   formIsValid.style.display = "flex";
 }
 
-function hideSignup() {
-  signUp.style.display = "none";
+function closeValidForm() {
+  formIsValid.style.display = "none";
 }
 
 // Valid all inputs in the form
 function validate() {
-  const resultName = regexNames.test(firstNameInput.value);
+  const resultName = regexNames.test(firstNameInput.value); // check input format
   const resultSurname = regexNames.test(surnameInput.value);
   const resultEmail = regexEmail.test(emailInput.value);
   const birthDate = !!(Date.parse(inputs[3].value));
@@ -81,7 +86,6 @@ function validate() {
   if(resultEmail && resultName && resultSurname && birthDate && locationChecked && rules) 
   {  
     validForm();
-    hideSignup();
     closeModal();
   }
   return false;
